@@ -28,6 +28,7 @@ When making changes to API reference, there is a specific structure each article
 Follow these steps to make a change and submit a contribution to the docs.
 1. **Fork the repo**. https://help.github.com/articles/fork-a-repo/
 2. **[Clone the forked repo](https://help.github.com/articles/cloning-a-repository/)** to your computer. Note: You can actually [edit files directly on GitHub](https://help.github.com/articles/editing-files-in-your-repository/) and avoid cloning. But cloning makes edits easier if you are making large changes or changes to multiple files.
+3. **Check out the staging branch**. New submissions are always reviewed and tested in the **staging** branch before they can go live.
 3. **Make your changes**. You can use any editor of your choice. We like to use [Visual Studio Code](https://code.visualstudio.com/download). We use Markdown to document, and you can find more information at the [Markdown Home][].
 4. **[Create a pull request (PR)](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)** from your fork to our original doc repo. 
 
