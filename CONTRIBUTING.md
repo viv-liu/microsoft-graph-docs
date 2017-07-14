@@ -28,10 +28,22 @@ If you're making changes to content in the api-reference folder, note that those
 ## How do I contribute?
 
 Follow these steps to make a change and submit a contribution to the docs.
-1. **Fork the repo**. https://help.github.com/articles/fork-a-repo/
-2. **[Clone the forked repo](https://help.github.com/articles/cloning-a-repository/)** to your computer. Note: You can actually [edit files directly on GitHub](https://help.github.com/articles/editing-files-in-your-repository/) and avoid cloning. But cloning makes edits easier if you are making large changes or changes to multiple files.
-4. **Make your changes**. You can use any editor you choose. We like to use [Visual Studio Code](https://code.visualstudio.com/download). We use Markdown syntax; for more information, see [Markdown Home][].
-5. **[Create a pull request (PR)](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)** from your fork to our original doc repo. 
+
+### 1. Fork the repo
+
+You can't edit the repo directly. Instead you need to fork the repo to your own GitHub account. If you don't have a GitHub account, you can sign up for a free account on the [GitHub home page](https://github.com/). If you need help forking the repo, see [Fork A Repo](https://help.github.com/articles/fork-a-repo/).
+
+### 2. Clone the forked repo
+
+You can [edit files directly on GitHub](https://help.github.com/articles/editing-files-in-your-repository/). But if you are making a large change, or updating multiple files, cloning the repo to your computer will be easier. If you need help cloning the repo, see [Cloning a repository](https://help.github.com/articles/cloning-a-repository/).
+
+### 3. Make your changes
+
+You can use any editor you choose. We like to use [Visual Studio Code](https://code.visualstudio.com/download). We use Markdown syntax; for more information, see [Markdown Home][].
+
+### 4. Create a pull request
+
+The last step is to create the pull request from your forked repo back to our original doc repo. This will submit your changes for review. If you need help creating a pull request, see [Creating a pull request from a fork](https://help.github.com/articles/creating-a-pull-request-from-a-fork/).
 
 ## I created the PR, what happens next?
 
