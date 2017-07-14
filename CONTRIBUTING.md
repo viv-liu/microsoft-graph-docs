@@ -2,12 +2,13 @@
 
 Thank you for your interest in the Microsoft Graph documentation! The documentation is open source and anyone can contribute and help make the docs better and more comprehensive. Here are a few ways you can help out with this repo.
 
-* Fix bugs, grammar, or typos you find in the docs.
-* Fix issues other people have logged in the [issues][] list.
+* Fix bugs, grammar, or typos you find in the docs and submit a pull request.
+* Fix open issues on our backlog from the [issues][] list by submitting a pull request.
 * Report doc bugs by creating new [issues][].
 * Request new documentation by describing what is needed in new [issues][].
 
 ## Doc repo structure
+
 Before you contribute to the documentation, you'll need to understand how the repo folders are structured.
 
 The docs are split into two main sections: concepts, and API reference. There are two main folders that contain these docs. The API reference is further split into beta and v1.0 sections. You can see this breakout on the web site as well.
@@ -34,7 +35,7 @@ Follow these steps to make a change and submit a contribution to the docs.
 
 ## I created the PR, so now what happens?
 
-If the change is significant (more than just a typo) you'll be asked to sign a Contribution License Agreement (CLA). You will only be asked to sign the CLA once. If you make future contributions you won't be asked again. Please carefully review the document; you may also need to have your employer sign the document. Once approved your PR can be reviewed by the docs team. You may be asked to make a few changes before the PR can be accepted. Once it is accepted it will be merged and eventually published live.
+If the change is significant (more than just a typo) you'll be asked to sign a Contribution License Agreement (CLA). You only need to sign the CLA once and won't be asked again on future contributions. Please carefully review the document; you may also need to have your employer sign the document. Once approved your PR can be reviewed by the docs team. The docs team may ask you to make a few changes before the PR can be accepted. Once it is accepted it will be merged and eventually published live.
 
 We do our best to review pull requests within 10 business days.
 
