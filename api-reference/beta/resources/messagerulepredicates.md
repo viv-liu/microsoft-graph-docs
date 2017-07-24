@@ -25,7 +25,7 @@ Represents the set of conditions and exceptions that are available for a rule.
 | isVoicemail | Boolean | Indicates whether an incoming message must be a voice mail in order for the condition or exception to apply. |
 | messageActionFlag | String  | Represents the flag-for-action value that appears on an incoming message in order for the condition or exception to apply. Possible values are: `any`, `call`, `doNotForward`, `followUp`, `fYI`, `forward`, `noResponseNecessary`, `read`, `reply`, `replyToAll`, `review`. |
 | notSentToMe | Boolean | Indicates whether the owner of the mailbox must not be a recipient of an incoming message in order for the condition or exception to apply. |
-| receipentContains | Collection (String) | Represents the strings that appear in either the **toRecipients** or **ccRecipients** properties of an incoming message in order for the condition or exception to apply. |
+| recipientContains | Collection (String) | Represents the strings that appear in either the **toRecipients** or **ccRecipients** properties of an incoming message in order for the condition or exception to apply. |
 | senderContains | Collection (String) | Represents the strings that appear in the **from** property of an incoming message in order for the condition or exception to apply. |
 | sensitivity | String | Represents the sensitivity level that must be stamped on an incoming message in order for the condition or exception to apply. Possible values are: `normal`, `personal`, `private`, `confidential`. |
 | sentCcMe | Boolean | Indicates whether the owner of the mailbox must be in the **ccRecipients** property of an incoming message in order for the condition or exception to apply. |
@@ -70,7 +70,7 @@ Here is a JSON representation of the resource.
   "isVoicemail": "Boolean",
   "messageActionFlag": "String",
   "notSentToMe": "Boolean",
-  "receipentContains": ["String"],
+  "recipientContains": ["String"],
   "senderContains": ["String"],
   "sensitivity": "String",
   "sentCcMe": "Boolean",
