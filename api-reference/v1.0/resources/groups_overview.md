@@ -1,6 +1,6 @@
 # Working with groups in Microsoft Graph
 
-Groups are collections of [users](*) and [devices](*) (and more?) who share access to resources in Office365 or in your app. All operations in Microsoft Graph on groups require administrator consent. Using Microsoft Graph, you can perform the following operations and more:
+Groups are collections of [users](https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user) who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit yoru scenario needs. All operations in Microsoft Graph on groups require administrator consent. Using Microsoft Graph, you can perform the following operations and more:
 - create groups
 - check if a user is a member of a group
 - list all groups a user is a member of
@@ -9,36 +9,36 @@ Groups are collections of [users](*) and [devices](*) (and more?) who share acce
 - add and remove owners of a group.
 
 **NOTE**
-Groups are only supported for enterprise accounts, and not supported for Microsoft personal accounts.
+Groups are only supported for work or school accounts, and not supported for Microsoft personal accounts.
 
 ## Office 365 groups
-Office 365 groups are for people who collaborate on a project or a team. Members share access to Office365 resources including:
-- calendar
-- drive
-- notes
-- plans (beta)
+The power of Office 365 groups is in its collaborative nature, perfect for people who work together on a project or a team. They are created with resources that members of the group share including:
 
-Using the API, your app can access these resources to further drive engaging collaboration scenarios. There are 2 types of Office 365 groups:
+- SharePoint Document Library
+- OneNote notebook
+- SharePoint Team Site
+- Planner
 
-| Type | Use case | Shared resources |
-|------------|-------|--------|
-| Outlook group | Mail-driven collaboration | Mail conversations and threads, tasks (beta) |
-| Microsoft Team | High velocity chat-driven collaboration | Channels, chat threads |
-| *TODO* Yammer group | How to access Yammer posts through API? |
+Your app can access and manage these resources through the API. Currently, there are 2 types of Office 365 groups accessible through the API
 
-**NOTE** Today, only Outlook groups can be created through the API. 
+| Type           | Use case | Shared resources |
+|----------------|----------|------------------|
+| Outlook group  | Shared inbox mail-driven collaboration. | Mail conversations and threads, Outlook calendar, Outlook tasks (beta) |
+| Microsoft Team | High velocity persistent chat-driven collaboration. | Channels, chat threads |
 
-**NOTE** Today, you can check if an Office 365 group is an Outlook group or a Microsoft Teams by trying GET /group/{id}/channels. If it works, then it's a Microsoft Team, else it's an Outlook group.
+**NOTE** Currently, Microsoft Teams cannot be created through the API. 
+
+**NOTE** Currently, you can check if an Office 365 group is an Outlook group or a Microsoft Teams by trying GET /group/{id}/channels. If it works, then it's a Microsoft Team, else it's an Outlook group.
 
 ### Example of Outlook group
 
 ```http
 
 {
-    "@odata.context": "https://graph.microsoft.com/beta/$metadata#groups/$entity",
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#groups/$entity",
     "id": "4c5ee71b-e6a5-4343-9e2c-4244bc7e0938",
     "deletedDateTime": null,
-    "classification": "MBI",
+]    "classification": "MBI",
     "createdDateTime": "2016-08-23T14:46:56Z",
     "description": "This group will be use to track improvements we make to the Graph IA site",
     "displayName": "Awesome Graph Docs",
@@ -59,10 +59,12 @@ Using the API, your app can access these resources to further drive engaging col
     "visibility": "Public"
 }
 ```
-## Security group and mail-enabled security group
-Security groups are for controlling user access to resources. By checking whether or not a user is a member of a security group, your app can make authorization decisions when that user is trying to access some secure resources in your app. Mail-enabled security groups are the same on principle, but with a group mailbox provisioned by default so the group can receive mail.
+Learn more about Office 365 groups and the administrator experiences [here](https://support.office.com/en-us/article/Learn-about-Office-365-groups-b565caa1-5c40-40ef-9915-60fdb2d97fa2).
 
-**OPENQ** Can SGs be nested?
+## Security group and mail-enabled security group
+Security groups are for controlling user access to resources. By checking whether or not a user is a member of a security group, your app can make authorization decisions when that user is trying to access some secure resources in your app. Mail-enabled security groups are the same on principle, but with a group mailbox provisioned by default so the group can receive mail. Security groups can have users and other security groups as members.
+
+**NOTE** Currently, mail-enabled security groups cannot be created through the API.
 
 ### Example of security group
 
@@ -88,7 +90,7 @@ Security groups are for controlling user access to resources. By checking whethe
 }
 ```
 ## Dynamic membership 
-All types of groups can have dynamic membership rules which automatically adds or removes users or **devices???** from the group based on criteria over their properties. For example, a "Marketing employees" group should include every user with the department property set to "Marketing", so that new marketing employees are automatically added to the group and employees who leave are automatically removed from the group. This rule can be specified in a "membershipRule" field during group creation as ```"membershipRule": 'user.department -eq "Marketing"'``` GroupType must also include ```"DynamicMembership"```. The following request creates a new Office365 group for the marketing employees: 
+All types of groups can have dynamic membership rules which automatically adds or removes members from the group based on criteria over their properties. For example, a "Marketing employees" group should include every user with the department property set to "Marketing", so that new marketing employees are automatically added to the group and employees who leave are automatically removed from the group. This rule can be specified in a "membershipRule" field during group creation as ```"membershipRule": 'user.department -eq "Marketing"'``` GroupType must also include ```"DynamicMembership"```. The following request creates a new Office365 group for the marketing employees: 
 
 ```http
 https://graph.microsoft.com/beta/groups
