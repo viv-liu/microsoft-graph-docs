@@ -1,9 +1,17 @@
 # Working with groups in Microsoft Graph
 
-Groups are collections of [users](https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user) who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit yoru scenario needs. All operations in Microsoft Graph on groups require administrator consent.
+Groups are collections of [users](https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user) who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit your scenario needs. All operations in Microsoft Graph on groups require administrator consent.
 
 **NOTE**
 Groups are only supported for work or school accounts, and not supported for Microsoft personal accounts.
+
+There are 2 general types of groups, distinguished by their use cases and specific properties' values on each resource. 
+
+| Type              | Use case | groupType | mail-enabled | security-enabled | 
+|-------------------|----------|-----------|--------------|------------------|
+| Office 365 groups | Facilitating user collaboration with shared Microsoft online resources. | ["Unified"] | true | false | 
+| Security groups | Controlling user access to in-app resources. | [] | true/false | true |
+
 
 ## Office 365 groups
 The power of Office 365 groups is in its collaborative nature, perfect for people who work together on a project or a team. They are created with resources that members of the group share including:
@@ -22,7 +30,7 @@ Your app can access and manage these resources through the API. Currently, there
 
 **NOTE** Currently, Microsoft Teams cannot be created through the API. 
 
-**NOTE** Currently, you can check if an Office 365 group is an Outlook group or a Microsoft Teams by trying GET /group/{id}/channels. If it works, then it's a Microsoft Team, else it's an Outlook group.
+**NOTE** Currently, you can check if an Office 365 group is an Outlook group or a Microsoft Teams by trying ```GET /group/{id}/channels```. If it works, then it's a Microsoft Team, else it's an Outlook group.
 
 ### Example of Outlook group
 
