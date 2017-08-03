@@ -1,12 +1,6 @@
 # Working with groups in Microsoft Graph
 
-Groups are collections of [users](https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user) who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit yoru scenario needs. All operations in Microsoft Graph on groups require administrator consent. Using Microsoft Graph, you can perform the following operations and more:
-- create groups
-- check if a user is a member of a group
-- list all groups a user is a member of
-- list the members of a group
-- add and remove members from a group
-- add and remove owners of a group.
+Groups are collections of [users](https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user) who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit yoru scenario needs. All operations in Microsoft Graph on groups require administrator consent.
 
 **NOTE**
 Groups are only supported for work or school accounts, and not supported for Microsoft personal accounts.
@@ -23,7 +17,7 @@ Your app can access and manage these resources through the API. Currently, there
 
 | Type           | Use case | Shared resources |
 |----------------|----------|------------------|
-| Outlook group  | Shared inbox mail-driven collaboration. | Mail conversations and threads, Outlook calendar, Outlook tasks (beta) |
+| Outlook group  | Shared inbox mail-driven collaboration. | Mail conversations and threads, Outlook calendar |
 | Microsoft Team | High velocity persistent chat-driven collaboration. | Channels, chat threads |
 
 **NOTE** Currently, Microsoft Teams cannot be created through the API. 
@@ -38,22 +32,21 @@ Your app can access and manage these resources through the API. Currently, there
     "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#groups/$entity",
     "id": "4c5ee71b-e6a5-4343-9e2c-4244bc7e0938",
     "deletedDateTime": null,
-]    "classification": "MBI",
+    "classification": "MBI",
     "createdDateTime": "2016-08-23T14:46:56Z",
-    "description": "This group will be use to track improvements we make to the Graph IA site",
-    "displayName": "Awesome Graph Docs",
+    "description": "This is an Outlook group",
+    "displayName": "OutlookGroup101",
     "groupTypes": [
         "Unified"
     ],
-    "mail": "graphia@service.microsoft.com",
+    "mail": "outlookgroup101@service.microsoft.com",
     "mailEnabled": true,
-    "mailNickname": "graphia",
+    "mailNickname": "outlookgroup101",
     "preferredLanguage": null,
     "proxyAddresses": [
-        "smtp:graphia@microsoft.onmicrosoft.com",
-        "SMTP:graphia@service.microsoft.com"
+        "smtp:outlookgroup101@microsoft.onmicrosoft.com",
+        "SMTP:outlookgroup101@service.microsoft.com"
     ],
-    "renewedDateTime": "2016-08-23T14:46:56Z",
     "securityEnabled": false,
     "theme": null,
     "visibility": "Public"
@@ -76,17 +69,14 @@ Security groups are for controlling user access to resources. By checking whethe
     "classification": null,
     "createdDateTime": "2016-07-20T09:21:23Z",
     "description": "This group is a Security Group",
-    "displayName": "RCG-Read Write-CG-11366",
+    "displayName": "SecurityGroup101",
     "groupTypes": [],
     "mail": null,
     "mailEnabled": false,
     "mailNickname": "mysg",
     "preferredLanguage": null,
     "proxyAddresses": [],
-    "renewedDateTime": "2016-07-20T09:21:23Z",
-    "securityEnabled": true,
-    "theme": null,
-    "visibility": null
+    "securityEnabled": true
 }
 ```
 ## Dynamic membership 
@@ -113,163 +103,15 @@ Learn more about formulating membershipRules in [advanced rules](https://docs.mi
 
 **NOTE** Dynamic membership rules requires the tenant to have a license at tier [Azure Active Directory Premium P1](https://azure.microsoft.com/en-us/pricing/details/active-directory/) or greater.
 
-## Administrator master switch
-Where can an admin disable groups master switch. Planner today will show error. 
-Group creation should succeed if master switch is on.
+## Common use cases
 
-# END OF ARTICLE, the rest are notes and scribbles
+Using Microsoft Graph, you can perform the these common operations and more:
 
-## Distribution group (not sure if this is possible through MS Graph, talk to Dhana)
-- for lightweight email distribution
-- we don’t provide management experiences to manage thousands of members in a flat list
-- or nested scenarios 
-- group info and membership stored in EXO
-
-- what a DG looks like in Graph
-
-## Office365 group
-
-- **Outlook group**: groups working on an initiative, planner board to track tasks, email. Might not need a response right away. 
-- **Yammer group**: no email, no calendar, enterprise social, good for communicating across org.
-(creation not possible today, unless EDU endpoint: graph.microsoft.com/edu) 
-- **Microsoft teams**: chat, high velocity orgs, live service, iterating rapidly with fast responses, stay in context within channel, code highlight
-(creation not possible today)
-
-**NOTE** 
-Office365 groups cannot be nested. 
-**OPENQ**
-- What happens if the tenant doesn't have the OneDrive license? Is that part turned off?
-- What each flavor looks like in Graph 
-
-
-**OPENQ** Can you read a DG if it already exists? A: Yes
-No way to tell Teams from Outlook group
-```http
-{
-    "error": {
-        "code": "DynamicGroupLicenseError_NoProperLicense",
-        "message": "Tenant does not have proper license to create/update dynamic group membership properties.",
-        "innerError": {
-            "request-id": "23101d28-229d-446c-b2c3-f5a28ffadb46",
-            "date": "2017-07-13T17:01:33"
-        }
-    }
-}
-```
-
-```http
-https://graph.microsoft.com/beta/groups
-{
-    "description": "Marketing department folks",
-    "displayName": "Marketing department",
-    "groupTypes": [
-        "Unified",
-        "DynamicMembership"
-    ],
-    "mailEnabled": true,
-    "mailNickname": "marketing",
-    "securityEnabled": false,
-    "membershipRule": 'user.department -eq "Marketing"',
-    "membershipRuleProcessingState": "on"
-}
-
-{
-    "@odata.context": "https://graph.microsoft.com/beta/$metadata#groups/$entity",
-    "id": "7b91471f-47fb-483b-9b1f-e64ef9a90d34",
-    "deletedDateTime": null,
-    "classification": null,
-    "createdDateTime": "2017-07-13T20:47:10Z",
-    "description": "Marketing department folks",
-    "displayName": "Marketing department",
-    "groupTypes": [
-        "Unified",
-        "DynamicMembership"
-    ],
-    "mail": "marketing@adatumisv.onmicrosoft.com",
-    "mailEnabled": true,
-    "mailNickname": "marketing",
-    "membershipRule": "user.department -eq \"Marketing\"",
-    "membershipRuleProcessingState": "On",
-    "onPremisesLastSyncDateTime": null,
-    "onPremisesProvisioningErrors": [],
-    "onPremisesSecurityIdentifier": null,
-    "onPremisesSyncEnabled": null,
-    "preferredLanguage": null,
-    "proxyAddresses": [
-        "SMTP:marketing@adatumisv.onmicrosoft.com"
-    ],
-    "renewedDateTime": "2017-07-13T20:47:10Z",
-    "resourceBehaviorOptions": [],
-    "resourceProvisioningOptions": [],
-    "securityEnabled": false,
-    "theme": null,
-    "visibility": "Public"
-}
-```
-
-```http
-https://graph.microsoft.com/v1.0/groups
-{
-    "description": "Test DG",
-    "displayName": "Test DG",
-    "groupTypes": [],
-    "mailEnabled": true,
-    "mailNickname": "dg",
-    "securityEnabled": false,
-}
-
-{
-    "error": {
-        "code": "InternalServerError",
-        "message": "The given key was not present in the dictionary.",
-        "innerError": {
-            "request-id": "f0a38b42-2553-442d-8c33-c3a7bcd07074",
-            "date": "2017-07-20T18:06:47"
-        }
-    }
-}
-```
-
-## Viv Test MS Team
-
-```http
-{
-    "@odata.context": "https://graph.microsoft.com/beta/$metadata#groups/$entity",
-    "id": "64fde3af-08ed-4c88-9cda-0f006a3286b1",
-    "deletedDateTime": null,
-    "classification": "MBI",
-    "createdDateTime": "2017-06-19T22:35:32Z",
-    "description": "Viv Test",
-    "displayName": "Viv Test",
-    "groupTypes": [
-        "Unified"
-    ],
-    "mail": "VivTest@service.microsoft.com",
-    "mailEnabled": true,
-    "mailNickname": "VivTest",
-    "membershipRule": null,
-    "membershipRuleProcessingState": null,
-    "onPremisesLastSyncDateTime": null,
-    "onPremisesProvisioningErrors": [],
-    "onPremisesSecurityIdentifier": null,
-    "onPremisesSyncEnabled": null,
-    "preferredLanguage": null,
-    "proxyAddresses": [
-        "smtp:VivTest@microsoft.onmicrosoft.com",
-        "SMTP:VivTest@service.microsoft.com"
-    ],
-    "renewedDateTime": "2017-06-19T22:35:32Z",
-    "resourceBehaviorOptions": [],
-    "resourceProvisioningOptions": [],
-    "securityEnabled": false,
-    "theme": null,
-    "visibility": "Private"
-}
-```
-
-## Yammer group
-
-```http
-https://graph.microsoft.com/beta/groups/bcb056a1-bf93-4d0e-94ce-ffcdcc468b2e
-
-```
+| **Use cases**		   | **REST resources**	| **See also** |
+|:---------------|:--------|:----------|
+| **Group object and methods** | | |
+| Create new groups, get existing groups, update the properties on groups, and delete groups. Currently, only security groups and Outlook groups can be created through the API. | [group](group.md) | [Create new groups](../api/group_post_groups.md) <br/> [List groups](../api/group_list.md) <br/> [Update groups](../api/group_update.md) <br/> [Delete groups](../api/group_delete.md) |
+| **Group membership methods** | | |
+| List the members of a group, and add or remove members. | [user](user.md) <br/> [group](group.md)| [List members](../api/group_list_members.md) <br/> [Add member](../api/group_post_members.md) <br/> [Remove member](../api/group_delete_members.md)|
+| Check if a user is a member of a group, get all the groups the user is a member of. | [user](user.md) <br/> [group](group.md)| [Check member groups](../api/group_checkmembergroups.md) <br/> [Get member groups](../api/group_get_membergroups.md)|
+| List the owners of a group, and add or remove owners. | [user](user.md) <br/> [group](group.md)| [List owners](../api/group_list_members.md) <br/> [Add member](../api/group_post_members.md) <br/> [Remove member](../api/group_delete_members.md)|
