@@ -10,27 +10,20 @@ There are 2 general types of groups, distinguished by their use cases and specif
 | Type              | Use case | groupType | mail-enabled | security-enabled | 
 |-------------------|----------|-----------|--------------|------------------|
 | Office 365 groups | Facilitating user collaboration with shared Microsoft online resources. | ["Unified"] | true | false | 
-| Security groups | Controlling user access to in-app resources. | [] | true/false | true |
+| Security groups | Controlling user access to in-app resources. | [] | false | true |
 
 
 ## Office 365 groups
 The power of Office 365 groups is in its collaborative nature, perfect for people who work together on a project or a team. They are created with resources that members of the group share including:
 
+- Outlook mail conversations and threads
+- Outlook calendar
 - SharePoint Document Library
 - OneNote notebook
 - SharePoint Team Site
 - Planner
 
-Your app can access and manage these resources through the API. Currently, there are 2 types of Office 365 groups accessible through the API
-
-| Type           | Use case | Shared resources |
-|----------------|----------|------------------|
-| Outlook group  | Shared inbox mail-driven collaboration. | Mail conversations and threads, Outlook calendar |
-| Microsoft Team | High velocity persistent chat-driven collaboration. | Channels, chat threads |
-
-**NOTE** Currently, Microsoft Teams cannot be created through the API. 
-
-**NOTE** Currently, you can check if an Office 365 group is an Outlook group or a Microsoft Teams by trying ```GET /group/{id}/channels```. If it works, then it's a Microsoft Team, else it's an Outlook group.
+Your app can access and manage these resources through the API.
 
 ### Example of Outlook group
 
@@ -62,10 +55,8 @@ Your app can access and manage these resources through the API. Currently, there
 ```
 Learn more about Office 365 groups and the administrator experiences [here](https://support.office.com/en-us/article/Learn-about-Office-365-groups-b565caa1-5c40-40ef-9915-60fdb2d97fa2).
 
-## Security group and mail-enabled security group
-Security groups are for controlling user access to resources. By checking whether or not a user is a member of a security group, your app can make authorization decisions when that user is trying to access some secure resources in your app. Mail-enabled security groups are the same on principle, but with a group mailbox provisioned by default so the group can receive mail. Security groups can have users and other security groups as members.
-
-**NOTE** Currently, mail-enabled security groups cannot be created through the API.
+## Security groups
+Security groups are for controlling user access to resources. By checking whether or not a user is a member of a security group, your app can make authorization decisions when that user is trying to access some secure resources in your app. Security groups can have users and other security groups as members.
 
 ### Example of security group
 
@@ -88,10 +79,10 @@ Security groups are for controlling user access to resources. By checking whethe
 }
 ```
 ## Dynamic membership 
-All types of groups can have dynamic membership rules which automatically adds or removes members from the group based on criteria over their properties. For example, a "Marketing employees" group should include every user with the department property set to "Marketing", so that new marketing employees are automatically added to the group and employees who leave are automatically removed from the group. This rule can be specified in a "membershipRule" field during group creation as ```"membershipRule": 'user.department -eq "Marketing"'``` GroupType must also include ```"DynamicMembership"```. The following request creates a new Office365 group for the marketing employees: 
+All types of groups can have dynamic membership rules which automatically add or remove members from the group based on user properties. For example, a "Marketing employees" group would include every user with the department property set to "Marketing", so that new marketing employees are automatically added to the group and employees who leave the department are automatically removed from the group. This rule can be specified in a "membershipRule" field during group creation as ```"membershipRule": 'user.department -eq "Marketing"'``` GroupType must also include ```"DynamicMembership"```. The following request creates a new Office 365 group for the marketing employees: 
 
 ```http
-https://graph.microsoft.com/beta/groups
+POST https://graph.microsoft.com/v1.0/groups
 {
     "description": "Marketing department folks",
     "displayName": "Marketing department",
@@ -123,3 +114,13 @@ Using Microsoft Graph, you can perform the these common operations and more:
 | List the members of a group, and add or remove members. | [user](user.md) <br/> [group](group.md)| [List members](../api/group_list_members.md) <br/> [Add member](../api/group_post_members.md) <br/> [Remove member](../api/group_delete_members.md)|
 | Check if a user is a member of a group, get all the groups the user is a member of. | [user](user.md) <br/> [group](group.md)| [Check member groups](../api/group_checkmembergroups.md) <br/> [Get member groups](../api/group_get_membergroups.md)|
 | List the owners of a group, and add or remove owners. | [user](user.md) <br/> [group](group.md)| [List owners](../api/group_list_members.md) <br/> [Add member](../api/group_post_members.md) <br/> [Remove member](../api/group_delete_members.md)|
+
+## Other types of groups
+
+You may encounter some of these types of groups being returned when performing operations that return collections of groups. The following groups can be returned through Microsoft Graph, but can't be created or otherwise managed using this API.
+
+| Type              | Use case | groupType | mail-enabled | security-enabled | Learn more |
+|-------------------|----------|-----------|--------------|------------------|------------|
+| Groups in Yammer | Facilitating user collaboration with through Yammer posts. | ["Unified"] | true | false | [Yammer developer API docs](https://developer.yammer.com/docs) |
+| Mail-enabled security groups | Controlling user access to in-app resources, with a shared group mailbox. | [] | true | true | [Manage mail-enabled security groups Exchange article](https://technet.microsoft.com/en-us/library/bb123521(v=exchg.160).aspx) |
+| Distribution groups | Distributing mail to the members of the group. | [] | true | false | [Manage distribution groups Exchange article](https://technet.microsoft.com/en-us/library/mt577270(v=exchg.160).aspx) |
