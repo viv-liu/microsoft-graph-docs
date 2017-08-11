@@ -1,17 +1,17 @@
 # Working with groups in Microsoft Graph
 
-Groups are collections of [users](https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user) who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit your scenario needs. All operations in Microsoft Graph on groups require administrator consent.
+Groups are collections of [users](user.md) and other principals who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit your scenario needs. All operations in Microsoft Graph on groups require administrator consent.
 
 **NOTE**
-Groups are only supported for work or school accounts, and not supported for Microsoft personal accounts.
+Groups are only supported for work or school accounts, and not supported for personal Microsoft accounts.
 
-There are 2 general types of groups, distinguished by their use cases and specific properties' values on each resource. 
+These are the primary types of groups, distinguished by their use cases and specific properties' values on each resource. 
 
-| Type              | Use case | groupType | mail-enabled | security-enabled | 
-|-------------------|----------|-----------|--------------|------------------|
-| Office 365 groups | Facilitating user collaboration with shared Microsoft online resources. | ["Unified"] | true | false | 
-| Security groups | Controlling user access to in-app resources. | [] | false | true |
-
+| Type              | Use case | groupType | mail-enabled | security-enabled | Creation possible through API? | Member types supported |
+|-------------------|----------|-----------|--------------|------------------|--------------------------------|--------------|
+| Office 365 groups | Facilitating user collaboration with shared Microsoft online resources. | ["Unified"] | true | false | yes | [user](user.md) | 
+| Security groups | Controlling user access to in-app resources. | [] | false | true | yes | [user](user.md), security groups, [service principals](https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/resources/serviceprincipal) |
+| Mail-enabled security groups | Controlling user access to in-app resources, with a shared group mailbox. | [] | true | true | no | [user](user.md), security groups, [service principals](https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/resources/serviceprincipal) |
 
 ## Office 365 groups
 The power of Office 365 groups is in its collaborative nature, perfect for people who work together on a project or a team. They are created with resources that members of the group share including:
@@ -25,8 +25,7 @@ The power of Office 365 groups is in its collaborative nature, perfect for peopl
 
 Your app can access and manage these resources through the API.
 
-### Example of Outlook group
-
+### Example of Office 365 group
 ```http
 
 {
@@ -55,8 +54,10 @@ Your app can access and manage these resources through the API.
 ```
 Learn more about Office 365 groups and the administrator experiences [here](https://support.office.com/en-us/article/Learn-about-Office-365-groups-b565caa1-5c40-40ef-9915-60fdb2d97fa2).
 
-## Security groups
+## Security groups and mail-enabled security groups
 Security groups are for controlling user access to resources. By checking whether or not a user is a member of a security group, your app can make authorization decisions when that user is trying to access some secure resources in your app. Security groups can have users and other security groups as members.
+
+Mail-enabled security groups are used in the same way as security groups are, but with the added feature of a shared mailbox for the groups. Mail-enabled security groups can't be created through the API, but other group operations will still work here. Learn more in the [Manage mail-enabled security groups Exchange article](https://technet.microsoft.com/en-us/library/bb123521(v=exchg.160).aspx).
 
 ### Example of security group
 
@@ -102,6 +103,15 @@ Learn more about formulating membershipRules in [advanced rules](https://docs.mi
 
 **NOTE** Dynamic membership rules requires the tenant to have a license at tier [Azure Active Directory Premium P1](https://azure.microsoft.com/en-us/pricing/details/active-directory/) or greater.
 
+## Other types of groups
+
+You may encounter some of these types of groups being returned when performing operations that return collections of groups. The following groups can be returned through Microsoft Graph, but can't be created or otherwise managed using this API.
+
+| Type              | Use case | groupType | mail-enabled | security-enabled | Learn more |
+|-------------------|----------|-----------|--------------|------------------|------------|
+| Groups in Yammer | Facilitating user collaboration with through Yammer posts. | ["Unified"] | true | false | [Yammer developer API docs](https://developer.yammer.com/docs) |
+| Distribution groups | Distributing mail to the members of the group. | [] | true | false | [Manage distribution groups Exchange article](https://technet.microsoft.com/en-us/library/mt577270(v=exchg.160).aspx) |
+
 ## Common use cases
 
 Using Microsoft Graph, you can perform the these common operations and more:
@@ -115,12 +125,4 @@ Using Microsoft Graph, you can perform the these common operations and more:
 | Check if a user is a member of a group, get all the groups the user is a member of. | [user](user.md) <br/> [group](group.md)| [Check member groups](../api/group_checkmembergroups.md) <br/> [Get member groups](../api/group_get_membergroups.md)|
 | List the owners of a group, and add or remove owners. | [user](user.md) <br/> [group](group.md)| [List owners](../api/group_list_members.md) <br/> [Add member](../api/group_post_members.md) <br/> [Remove member](../api/group_delete_members.md)|
 
-## Other types of groups
 
-You may encounter some of these types of groups being returned when performing operations that return collections of groups. The following groups can be returned through Microsoft Graph, but can't be created or otherwise managed using this API.
-
-| Type              | Use case | groupType | mail-enabled | security-enabled | Learn more |
-|-------------------|----------|-----------|--------------|------------------|------------|
-| Groups in Yammer | Facilitating user collaboration with through Yammer posts. | ["Unified"] | true | false | [Yammer developer API docs](https://developer.yammer.com/docs) |
-| Mail-enabled security groups | Controlling user access to in-app resources, with a shared group mailbox. | [] | true | true | [Manage mail-enabled security groups Exchange article](https://technet.microsoft.com/en-us/library/bb123521(v=exchg.160).aspx) |
-| Distribution groups | Distributing mail to the members of the group. | [] | true | false | [Manage distribution groups Exchange article](https://technet.microsoft.com/en-us/library/mt577270(v=exchg.160).aspx) |
