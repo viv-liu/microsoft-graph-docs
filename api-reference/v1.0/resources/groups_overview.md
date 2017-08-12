@@ -105,7 +105,7 @@ POST https://graph.microsoft.com/v1.0/groups
 
 Learn more about formulating membershipRules in [advanced rules](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-groups-dynamic-membership-azure-portal).
 
-**NOTE** Dynamic membership rules requires the tenant to have a license at tier [Azure Active Directory Premium P1](https://azure.microsoft.com/en-us/pricing/details/active-directory/) or greater.
+> **Note**: Dynamic membership rules requires the tenant to have a license at tier [Azure Active Directory Premium P1](https://azure.microsoft.com/en-us/pricing/details/active-directory/) or greater.
 
 ## Other types of groups
 
