@@ -2,7 +2,7 @@
 
 Groups are collections of [users](user.md) and other principals who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit your scenario needs. All operations in Microsoft Graph on groups require administrator consent.
 
-> **Note**: Groups can onlybe created through work or school accounts, and not supported for personal Microsoft accounts.
+> **Note**: Groups can only be created through work or school accounts, and are not supported for personal Microsoft accounts.
 
 | Type              | Use case | groupType | mail-enabled | security-enabled | Creation possible through API? |
 |-------------------|----------|-----------|--------------|------------------|--------------------------------|
@@ -11,7 +11,7 @@ Groups are collections of [users](user.md) and other principals who share access
 | Mail-enabled security groups | Controlling user access to in-app resources, with a shared group mailbox. | [] | true | true | no |
 | Distribution groups | Distributing mail to the members of the group. It is recommended to use Office 365 groups due to the richer set of resources it provides. | [] | true | false | yes |
 
-## Office 365 groups
+## Office 365 groups in Outlook
 The power of Office 365 groups is in its collaborative nature, perfect for people who work together on a project or a team. They are created with resources that members of the group share including:
 
 - Outlook conversations
@@ -29,7 +29,7 @@ Other resources that are created but not accessible through the API include:
 - Microsoft Stream
 - Microsoft StaffHub
 
-### Example of Office 365 group
+### Example of Office 365 group in Outlook
 ```http
 
 {
