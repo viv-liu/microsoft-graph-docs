@@ -2,28 +2,32 @@
 
 Groups are collections of [users](user.md) and other principals who share access to resources in Microsoft services or in your app. Microsoft Graph provides you with APIs to create and manage a variety of different types of groups and group functionality to suit your scenario needs. All operations in Microsoft Graph on groups require administrator consent.
 
-**NOTE**
-Groups are only supported for work or school accounts, and not supported for personal Microsoft accounts.
+> **Note**: Groups can onlybe created through work or school accounts, and not supported for personal Microsoft accounts.
 
-These are the primary types of groups, distinguished by their use cases and specific properties' values on each resource. 
-
-| Type              | Use case | groupType | mail-enabled | security-enabled | Creation possible through API? | Member types supported |
-|-------------------|----------|-----------|--------------|------------------|--------------------------------|--------------|
+| Type              | Use case | groupType | mail-enabled | security-enabled | Creation possible through API? |
+|-------------------|----------|-----------|--------------|------------------|--------------------------------|
 | Office 365 groups | Facilitating user collaboration with shared Microsoft online resources. | ["Unified"] | true | false | yes | [user](user.md) | 
-| Security groups | Controlling user access to in-app resources. | [] | false | true | yes | [user](user.md), security groups, [service principals](https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/resources/serviceprincipal) |
-| Mail-enabled security groups | Controlling user access to in-app resources, with a shared group mailbox. | [] | true | true | no | [user](user.md), security groups, [service principals](https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/resources/serviceprincipal) |
+| Security groups | Controlling user access to in-app resources. | [] | false | true | yes |
+| Mail-enabled security groups | Controlling user access to in-app resources, with a shared group mailbox. | [] | true | true | no |
+| Distribution groups | Distributing mail to the members of the group. It is recommended to use Office 365 groups due to the richer set of resources it provides. | [] | true | false | yes |
 
 ## Office 365 groups
 The power of Office 365 groups is in its collaborative nature, perfect for people who work together on a project or a team. They are created with resources that members of the group share including:
 
-- Outlook mail conversations and threads
+- Outlook conversations
 - Outlook calendar
-- SharePoint Document Library
+- SharePoint files
 - OneNote notebook
-- SharePoint Team Site
+- SharePoint team site
 - Planner
+- Intune device management
 
-Your app can access and manage these resources through the API.
+Other resources that are created but not accessible through the API include: 
+
+- Dynamics CRM
+- Microsoft Social Engagement
+- Microsoft Stream
+- Microsoft StaffHub
 
 ### Example of Office 365 group
 ```http
@@ -105,12 +109,7 @@ Learn more about formulating membershipRules in [advanced rules](https://docs.mi
 
 ## Other types of groups
 
-You may encounter some of these types of groups being returned when performing operations that return collections of groups. The following groups can be returned through Microsoft Graph, but can't be created or otherwise managed using this API.
-
-| Type              | Use case | groupType | mail-enabled | security-enabled | Learn more |
-|-------------------|----------|-----------|--------------|------------------|------------|
-| Groups in Yammer | Facilitating user collaboration with through Yammer posts. | ["Unified"] | true | false | [Yammer developer API docs](https://developer.yammer.com/docs) |
-| Distribution groups | Distributing mail to the members of the group. | [] | true | false | [Manage distribution groups Exchange article](https://technet.microsoft.com/en-us/library/mt577270(v=exchg.160).aspx) |
+Office 365 groups in Yammer are used to facilitate user collaboration through Yammer posts. This type of group can be returned through a read request, but their posts can't be accessed through the API. To learn more, see [Yammer developer API docs](https://developer.yammer.com/docs).
 
 ## Common use cases
 
